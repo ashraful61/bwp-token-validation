@@ -1,0 +1,14 @@
+.sidebar-full-main-panel-margin {
+    margin-left: 320px;
+    min-width: 100px;
+  }
+  .sidebar-icon-only-main-panel-margin {
+    margin-left: 70px;
+  }
+  
+  @media (max-width: 990px) {
+    .sidebar-full-main-panel-margin, .sidebar-icon-only-main-panel-margin {
+      margin-left: 0px;
+    }
+  }
+  

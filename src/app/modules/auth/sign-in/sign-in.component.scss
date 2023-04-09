@@ -1,0 +1,73 @@
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: #ec008c;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  color: #000000;
+  border: 1px solid #000000;
+}
+.checkbox label {
+  color: #ababab;
+}
+
+.input-field:focus {
+  border: 1px solid #ec008c;
+}
+
+/* Set a style for the submit button */
+
+.button {
+  background-color: #ec008c;
+  color: white;
+  border-color: #ec008c;
+  padding: 15px 20px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.checkbox-lg .custom-control-label::before,
+.checkbox-lg .custom-control-label::after {
+  top: 0.8rem;
+  width: 1.55rem;
+  height: 1.55rem;
+}
+.checkbox-lg .custom-control-label:checked:after {
+  background-color: #ec008c;
+}
+.checkbox-lg .custom-control-label {
+  padding-top: 13px;
+  padding-left: 6px;
+  margin-bottom: 15px;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+}
+.check-box-container {
+  display: flex;
+  justify-content: space-between;
+}
+// ::ng-deep  .dx-checkbox .dx-checkbox-icon {
+//   border-color: #000000;
+// }
+
+.forget-text {
+  text-decoration: underline;
+  color: #000000;
+  cursor: pointer;
+}
