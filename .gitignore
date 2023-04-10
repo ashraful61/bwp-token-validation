@@ -22,6 +22,8 @@ dist/
 # Maven
 target/
 dist/
+build/
+.angular/
 
 # JetBrains IDE
 .idea/

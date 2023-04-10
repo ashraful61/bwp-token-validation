@@ -12,6 +12,10 @@ import { DevExtremeModule } from './shared/modules/devExtreme.module';
 import { CookieService } from 'ngx-cookie-service';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './shared/interceptor/token.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
     DashboardHeaderComponent,
     DashboardMenuComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,9 +32,18 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
     BrowserAnimationsModule,
     FormsModule,
     DevExtremeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxSpinnerModule
   ],
-  providers: [CookieService],
-  bootstrap: [AppComponent]
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

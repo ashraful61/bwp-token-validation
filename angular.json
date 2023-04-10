@@ -30,9 +30,11 @@
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.light.css",
+              "node_modules/ngx-spinner/animations/ball-square-clockwise-spin.css",
               "src/assets/css/feather.css",
               "src/assets/css/themify-icons.css",
               "src/assets/css/style.css"
+             
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
