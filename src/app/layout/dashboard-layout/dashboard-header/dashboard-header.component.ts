@@ -5,21 +5,30 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 @Component({
   selector: 'app-dashboard-header',
   templateUrl: './dashboard-header.component.html',
-  styleUrls: ['./dashboard-header.component.scss']
+  styleUrls: ['./dashboard-header.component.scss'],
 })
 export class DashboardHeaderComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router: Router) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  logout() {
+  logout = () => {
     const res = this.authService.logout();
     if (res) {
       console.log('logout success');
       this.router.navigateByUrl('/auth');
     }
-  }
+  };
 
+  callAPI = () => {
+    this.authService.apiCall().subscribe({
+      next: (result) => {
+        console.log('api called');
+      },
+      error: (err) => {
+        // this.utilitiesService.showSpinner(false);
+        console.log(err);
+      },
+    });
+  };
 }

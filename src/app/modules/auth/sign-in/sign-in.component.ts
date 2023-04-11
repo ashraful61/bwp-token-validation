@@ -40,19 +40,19 @@ export class SignInComponent implements OnInit {
       console.log('Please provide all the required values!');
     } else {
       this.isSubmitted = false;
-      this.utilitiesService.showSpinner(true);
+      // this.utilitiesService.showSpinner(true);
       this.authService
         .signIn(this.signInForm.value.email, this.signInForm.value.password)
         .subscribe({
           next: (result) => {
-            this.utilitiesService.showSpinner(false);
-            if (result?.access_token) {
-              this.authService.setToken(result?.access_token);
+            // this.utilitiesService.showSpinner(false);
+            if (result?.result?.access_token) {
+              this.authService.setToken(result?.result?.access_token);
               this.router.navigateByUrl('/dashboard');
             }
           },
           error: (err) => {
-            this.utilitiesService.showSpinner(false);
+            // this.utilitiesService.showSpinner(false);
             console.log(err);
           },
         });

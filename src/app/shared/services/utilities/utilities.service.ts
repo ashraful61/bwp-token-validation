@@ -31,6 +31,7 @@ export class UtilitiesService {
   }
 
   errorResponseHandler(error: IErrorResponse) {
+    console.log(error)
     if (error.code == 400 || error.code == 404 || error.code == 409) {
       this.showAlert('Warning', error.message, 'warning');
     } else {

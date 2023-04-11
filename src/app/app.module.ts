@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout/dashboard-layout.component';
@@ -9,12 +8,12 @@ import { DashboardMenuComponent } from './layout/dashboard-layout/dashboard-menu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DevExtremeModule } from './shared/modules/devExtreme.module';
-import { CookieService } from 'ngx-cookie-service';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './shared/interceptor/token.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TokenInterceptor } from './shared/interceptor/token/token.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -42,7 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })

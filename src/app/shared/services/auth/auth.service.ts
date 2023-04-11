@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CookieService } from 'ngx-cookie-service';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 const jwtHelper = new JwtHelperService();
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
-    private cookieService: CookieService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {}
 
   isLoggedIn() {
-    const token = this.cookieService.get('BWToken');
+    const token = this.getToken();
+    console.log('Token Found', token)
     if (token) {
       try {
         if (jwtHelper.isTokenExpired(token)) {
@@ -54,20 +56,47 @@ export class AuthService {
       .post(environment.apiURL + '/account/login', body, {
         headers,
       })
-      .pipe(
-        map((x: any) => x.result),
-        map((x) => x),
-        catchError((error: Response) => {
-          return throwError(() => error);
-        })
-      );
+      .pipe();
+  }
+  apiCall(): Observable<any> {
+    // console.log('<========Token 0Auth wtih (grant_type: password) service called========>');
+
+    return this.http
+      .get('https://hub.sensor.buzz/cohort-configuration/api/v1/asset/all')
+      .pipe();
   }
 
+  
   getToken() {
-    return this.cookieService.get('BWToken');
+    return this.cookieService.get('token');
   }
 
   setToken(token: string) {
-    this.cookieService.set('BWToken', JSON.stringify(token));
+    this.cookieService.set('token', token);
   }
+
+  // getToken(name: any) {
+  //   var nameEQ = name + "=";
+  //   var cookies = document.cookie.split(';');
+  //   for (var i = 0; i < cookies.length; i++) {
+  //     var cookie = cookies[i];
+  //     while (cookie.charAt(0) == ' ') cookie = cookie.substring(1, cookie.length);
+  //     if (cookie.indexOf(nameEQ) == 0) return cookie.substring(nameEQ.length, cookie.length);
+  //   }
+  //   return null;
+  //   // return localStorage.getItem('token')
+  // }
+
+  // setToken(name: any, value: any, days: any) {
+  //   // localStorage.setItem('token',value)
+    
+  //     var expires = "";
+  //     if (days) {
+  //       var date = new Date();
+  //       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  //       expires = "; expires=" + date.toUTCString();
+  //     }
+  //     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  // }
+
 }
