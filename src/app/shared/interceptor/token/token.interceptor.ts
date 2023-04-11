@@ -55,23 +55,26 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ) => {
-    const started = Date.now();
-    let ok: string;
+    const startedTime = Date.now();
+    let responseType: string;
     return next.handle(request).pipe(
       map((x) => {
         this.utilitiesService.showSpinner(true);
         return x;
       }),
-      tap(
-        (event: HttpEvent<any>) =>
-          (ok = event instanceof HttpResponse ? 'succeeded' : ''),
-        (error: HttpErrorResponse) => (ok = 'failed')
-      ),
+      tap({
+        next: (event) => {
+          responseType = event instanceof HttpResponse ? 'succeeded' : '';
+        },
+        error: (error) => {
+          responseType = 'failed';
+        },
+      }),
       this.handlerError(),
       finalize(() => {
         this.utilitiesService.showSpinner(false);
-        const elapsed = Date.now() - started;
-        const msg = `${request.method} "${request.urlWithParams}" ${ok} in ${elapsed} ms.`;
+        const elapsedTime = Date.now() - startedTime;
+        const msg = `${request.method} "${request.urlWithParams}" ${responseType} in ${elapsedTime} ms.`;
         console.log(msg);
       })
     );
